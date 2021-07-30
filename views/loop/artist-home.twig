@@ -1,0 +1,10 @@
+<div class="mb-3 ">
+    <a href="{{ 'artista/' | url ~ artist.slug}}" class="d-flex" title="Letra de {{ artist.name}}">
+        <div class="lyric-image mr-3">
+            <img data-src="{{ 'upload/artista/' | url ~ artist.image}}" data-srcset="{{ 'upload/artista/' | url ~ artist.image}}" class="img-fluid shadow-img rounded-circle lazy" style="height: 50px;width: ;"/>
+        </div>
+        <div class="artist-name align-self-center">
+            <p class="text-dark m-0">{% if numero %}{{numero}}. {% endif %}{{ artist.name}}</p>  
+        </div>
+     </a>
+</div>

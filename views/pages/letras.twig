@@ -1,0 +1,51 @@
+<section class="my-3 bg-white p-4 shadow-sm">
+ 
+
+    <div class="row">
+        <div class="col-md-7">
+               <header>
+                {% if tipo != 'buscar' %}
+                    <h1 class="font-weight-bold">{{titulo}}</h1>
+                {% else %}
+                    <h1 class="font-weight-bold h5 text-uppercase mb-3">{{titulo}} {{q}}</h1>
+                {% endif %}
+                    {% if sub != '' %}
+                       <h2 class="font-weight-bold h3 mb-2 mt-4 d-inline-block">{{sub}}</h2> 
+                    {% endif %}
+                        {% if tipo != 'buscar' %}
+                        {% if tipo == 'Novedades' %}
+                            <a href="{{'nueva-canciones' | url }}" class="btn btn-outline-info font-weight-bold btn-sm align-baseline ml-3" title="Nueva letras de canciones">{{tipo}}</a>
+                        {% else %}
+                            <a href="{{'letras-de-canciones' | url }}" class="btn btn-outline-info font-weight-bold btn-sm align-baseline ml-3" title="Letras de canciones mas populares">{{tipo}}</a>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if desc %}
+                        <p>{{desc}} {% if q %}{{q}}{% endif %}</p>
+                    {% endif %}
+                </header>
+            <div class="row">
+                {% set count = 1 %}
+               {% for lyric in top_lyrics %}
+
+               {% if count == 10 %}
+                   <div class="col-md-12 mb-4">
+                        {{ ads.cuadro300 | raw}}
+                    </div>
+               {% else %}
+                     {% include "loop/list.twig" %}
+               {% endif %}
+                 {% set count =  count+1 %}
+               {% endfor %}
+            </div>
+
+            {# <a href="#" class="btn btn-outline-info">Letras de canciones</a> #}
+        </div>
+
+        <div class="col-md-4 sidebar-ads">
+             <div class="sidebar w-100">
+                {{ads.vertical300 | raw}}
+            </div>
+        </div>
+    </div>
+</section>

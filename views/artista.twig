@@ -1,0 +1,54 @@
+{% extends "partials/layout.twig" %}
+ 
+{% block content %}
+
+ <article class="bg-white shadow-sm p-3 mb-3">
+    <div class="row">
+     <div class="col-md-12 col-lg-7 row">
+        <div class="poster col-12 col-md-3 text-center text-md-left pr-0">
+            <img data-src="{{ 'upload/artista/' | url ~ lyric.image}}" data-srcset="{{ 'upload/artista/' | url ~ lyric.image}}" class="img-fluid shadow-sm rounded-circle lazy" style="width:120px;">
+        </div>
+        
+        <div class="info  text-center text-md-left col-md-9 mt-4 mb-3">
+            <h1 class="font-weight-bold h2"> {{ lyric.name }}</h1>
+        </div>
+
+        <div class="info-song col-md-12">
+            <h2 class="h4 font-weight-bold">Letras de {{ lyric.name }}</h2>
+            <p>{{lyric.lyric | length  }} canciones disponibles</p>
+        </div>
+
+        {% if lyric.lyric|length > 0 %}
+        <div id="letras" class="col-md-12 lyric">
+            <h2 class="font-weight-bold h5">Nueva letra de {{ lyric.name }}</h2>
+           
+            <div class="row">
+                {% for lyric in lyric.lyric %}
+                   {% include "loop/list.twig" %}
+                {% endfor %}
+             </div> 
+ 
+        </div>
+        {% endif %} 
+     </div>
+
+        <div class="col-md-5 sidebar-ads">
+            <div class="sidebar w-100">
+                {{ads.vertical300 | raw}}
+            </div>
+        </div>
+
+    </div>
+ </article>
+
+ 
+
+    
+
+{% endblock %}
+
+
+{% block footer %}
+
+ 
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "admin/partials/layout.twig" %}
+ 
+{% block content %}
+  
+  {% include "admin/partials/navbar.twig" %}
+  {% include "admin/partials/aside.twig" with {'active': 'canciones','vista': 'canciones'} %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+  
+    {% include "admin/partials/title.twig" with {'title': 'Lista de Canciones'} %}
+        
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        {{ '' | msg.display()}}
+        <div class="row">
+            {% include "admin/canciones/loop/lista-canciones.twig" %}
+            
+        </div>
+        <!-- /.row -->
+        
+      </div><!-- /.container-fluid -->
+      
+    </div>
+    <!-- /.content -->  
+    
+  </div>
+  
+  <!-- Content Wrapper. Contains page content -->
+{% endblock %}

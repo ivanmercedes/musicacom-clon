@@ -1,0 +1,41 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-header"> 
+               <a href="{{'admin/albums/add' | url }}" class="btn btn-info">Agregar un nuevo album</a>         
+                
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Portada</th>
+                      <th>Nombre</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  {% for item in albums %}
+                     <tr>
+                       
+                       <td>{{item.id}}</td>
+                       <td><img src="{{'upload/album/' | url ~ item.image}}" alt="" class="img-fluid" width="50px"></td>
+                       <td>{{item.name_album}}</td>
+                       <td>
+                         <a href="{{'admin/albums/' | url ~ 'edit/' ~ item.id }}"  class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                         <a onclick="return confirm('Seguro que deas Eliminarlo')" href="{{'admin/albums/' | url ~ 'delete/' ~ item.id }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                       </td>
+                    </tr>
+                  {% endfor %}
+                
+                  </tbody>
+                </table>
+                 {{ paginate |raw }}  
+              </div>
+             
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+</div>

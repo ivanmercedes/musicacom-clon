@@ -1,0 +1,117 @@
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- Default to the left -->
+    <strong>Develope by <a href="https://ivanmercedes.com">Ivan Mercedes</a></strong>
+  </footer>
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+
+<script src="{{'assets/js/jquery.min.js' | url }}"></script>
+<script src="{{'assets/js/select2.full.min.js' | url }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{'assets/js/bootstrap.bundle.min.js' | url }}"></script>
+<!-- AdminLTE App -->
+<script src="{{'assets/js/adminlte.min.js' | url }}"></script>
+
+
+<script> 
+   $('#select2').select2({
+        placeholder: 'Buscar Artista',
+        minimumInputLength: 1,
+        escapeMarkup: function (markup) { return markup; },
+        ajax: {
+        url: '{{ "" | url }}admin/ajax/?tipo=artista',
+        dataType: 'json',
+        delay: 250,
+         data: function (params) {
+            return {
+                q: params.term, 
+                page: params.page,
+            }
+         },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+        return {
+        results: data,
+        pagination: {
+               more: (params.page * 2) < data.total_count,
+            }
+          };
+       },
+       cache: true
+     }
+  });
+
+  $("#select2").change( function(event) {
+      console.log(event);
+		$.ajax({
+			url: '{{ "" | url }}admin/ajax',
+			type: 'GET',
+			data: 'tipo=album&artist=' + $("#select2 option:selected").val(),
+		}).done(function ( estado ){
+			$('#estado').html('');
+			$('#estado').append($('<option></option>').text('Seleccione un Album').val(''));
+            const resultado = JSON.parse(estado);
+            resultado.forEach(select=>{
+                const option  = document.createElement('option');
+                option.value = select.id;
+                option.text = select.name_album;
+                 document.getElementById('estado').appendChild(option);
+            });
+            
+				$('#estado').select2();
+			});
+		});
+
+
+  $('#featuring').select2({
+        placeholder: 'Buscar Artista',
+        minimumInputLength: 1,
+        escapeMarkup: function (markup) { return markup; },
+        ajax: {
+        url: '{{ "" | url }}admin/ajax/?tipo=artista',
+        dataType: 'json',
+        delay: 250,
+         data: function (params) {
+            return {
+                q: params.term, 
+                page: params.page,
+            }
+         },
+        processResults: function (data, params) {
+        return {
+             results: data,
+          };
+       },
+       cache: true
+     }
+  });
+
+
+  const YouTubeGetID = (url) =>{
+        var ID = '';
+        url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+        if(url[2] !== undefined) {
+          ID = url[2].split(/[^0-9a-z_\-]/i);
+          ID = ID[0];
+        }else {
+          ID = url;
+        } return ID;
+      }
+      
+        var yotube_input = document.querySelector('#video');
+        yotube_input.addEventListener("input", getID);
+
+        function getID() {
+          var input = document.querySelector('#video');
+          input.value = YouTubeGetID(input.value);
+        }
+
+
+</script>
+
+</body>
+</html>

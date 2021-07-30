@@ -1,0 +1,87 @@
+{% extends "admin/partials/layout.twig" %}
+ 
+{% block content %}
+  
+  {% include "admin/partials/navbar.twig" %}
+  {% include "admin/partials/aside.twig" with {'active': 'ajustes'} %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% include "admin/partials/title.twig" with {'title': 'Ajustes Generales'} %}
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+            {{ '' | msg.display()}}
+             <div class="row">
+                <div class="col-md-12">
+                    <form method="post" class="card p-3">
+                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label>Nombre del sitio web</label>
+                         <input type="text" class="form-control" name="website_name" value="{{setting.website_name}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Titutlo de la web</label>
+                         <input type="text" class="form-control" name="website_title" value="{{setting.website_title}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Descripción</label>
+                         <input type="text" class="form-control" name="website_description" value="{{setting.website_description}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Facebook page link</label>
+                         <input type="text" class="form-control" name="facebook_url" value="{{setting.facebook_url}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Instagram page link</label>
+                         <input type="text" class="form-control" name="instagram_url" value="{{setting.instagram_url}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Twitter page link</label>
+                         <input type="text" class="form-control" name="twitter_url" value="{{setting.twitter_url}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Youtube page link</label>
+                         <input type="text" class="form-control" name="youtube_url" value="{{setting.youtube_url}}">
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Scripts y Metas del header</label>
+                        <textarea class="form-control" rows="10" name="meta_head">{{ setting.meta_head}}</textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Scripts del Footer</label>
+                        <textarea class="form-control" rows="10" name="meta_footer">{{ setting.meta_footer}}</textarea>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                        <div class="card-footer">
+                             <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+             </div>
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+        
+  </div>
+  <!-- Content Wrapper. Contains page content -->
+{% endblock %}

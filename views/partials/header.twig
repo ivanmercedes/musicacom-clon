@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta charset="UTF-8"> -->
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> -->
+    <meta name="content-language" content="es" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{general.title}}</title>
+    {{general.metas | raw}}
+
+    {{general.setting.meta_head}}
+     <!-- Bootstrap CSS CDN -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+     <link rel="stylesheet" href="{{ 'assets/css/main.css' | url }}" >
+
+  </head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top p-1" style="z-index:2;">
+        <div class="container">
+            <button type="button" id="sidebarCollapse" class="btn text-white">
+                <i class="fas fa-bars fa-2x"></i>   
+            </button>
+
+            <div class="logo text-center text-white">
+              <a href="{{ ''| url }}">
+                    <span class="h2 font-weight-bold">{{general.setting.website_name}}</span>
+             </a>
+                
+            </div>
+
+            <div class="logo text-white">
+            {% if estaLogin %}
+                  <button   id="sidebarCollapse2" class="btn text-white" href="#">
+                     <i class="fas fa-user-circle fa-lg"></i>
+                </button> 
+            {% else %}
+                 <a href="#" data-toggle="modal" data-target="#loginModal" class="btn text-white">
+                     <i class="fas fa-sign-in-alt fa-lg"></i>
+                </a> 
+            {% endif %}
+                
+
+                 <button type="button" id="buscar" class="btn text-white btn-buscar" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="fas fa-search fa-lg"></i>
+                 </button>
+            </div>
+        </div>
+
+        
+    </nav>
+    
+        
+    
+      
+</header>
+{% include "partials/navbar.twig" %}
+
+<div id="buscadorForm" class="collapse container {% if bs == 'show'%} show {% endif %}">
+    <div class="p-3 bg-white mb-3 shadow-sm">
+       <input type="text" id="bsc" name="t2"  placeholder="Buscar letras, artistas, música" class="form-control" autocomplete="off">
+
+       <div id="opciones" class="mt-3">
+         <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-info px-4 btn-sm active bst" data-type="0">Todos</button>
+            <button type="button" class="btn btn-outline-info px-4 btn-sm bst" data-type="1">Artistas</button>
+            <button type="button" class="btn btn-outline-info px-4 btn-sm bst" data-type="2">Canciones</button>
+          </div>
+       </div>
+
+       <div id="result" class="result mt-3"></div>
+    </div>
+</div>
+
+
+
+

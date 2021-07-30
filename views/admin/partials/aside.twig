@@ -1,0 +1,182 @@
+ <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ ''| url }}" class="brand-link text-center" target="_blank">
+      <span class="brand-text font-weight-light">Administración</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+   
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{{'admin'| url}}" class="nav-link {% if active == 'dasboard' %}active{% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+
+
+        <li class="nav-item {% if active == 'canciones' %}menu-open{% endif %}">
+            <a href="#" class="nav-link {% if active == 'canciones' %}active{% endif %}">
+               <i class="nav-icon  fas fa-music"></i>
+              <p>
+                Canciones
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{'admin/canciones/agregar' | url }}" class="nav-link {% if vista == 'agregar' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Agregar Canción</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{'admin/canciones' | url }}" class="nav-link {% if vista == 'canciones' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Canciones Publicadas</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{'admin/canciones/pendientes' | url }}" class="nav-link {% if vista == 'pendientes' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Canciones Pendientes</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+         
+           <li class="nav-item {% if active == 'usuarios' %}menu-open{% endif %}">
+            <a href="#" class="nav-link {% if active == 'usuarios' %}active{% endif %}">
+                <i class="nav-icon fas fa-users"></i>
+              <p>
+                Usuarios
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{'admin/usuarios' | url }}" class="nav-link {% if vista == 'usuario' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Usuarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{'admin/usuarios/agregar' | url }}" class="nav-link {% if vista == 'addusuario' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crear Usuario</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+           <li class="nav-item {% if active == 'genero' %}menu-open{% endif %}">
+            <a href="#" class="nav-link {% if active == 'genero' %}active{% endif %}">
+                <i class="nav-icon fas fa-guitar"></i>
+               
+              <p>
+                Generos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{'admin/generos' | url }}" class="nav-link {% if vista == 'genero' %}active{% endif %}" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Generos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{'admin/generos/add' | url }}" class="nav-link {% if vista == 'addgenero' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crear Genero</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+           <li class="nav-item {% if active == 'artista' %}menu-open{% endif %}">
+            <a href="#" class="nav-link {% if active == 'artista' %}active{% endif %}">
+                  <i class="nav-icon fas fa-microphone-alt"></i>
+              <p>
+                Artistas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ 'admin/artistas' | url }}" class="nav-link {% if vista == 'artista' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Artistas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ 'admin/artistas/add' | url }}" class="nav-link {% if vista == 'addartista' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crear Artista</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+               <li class="nav-item {% if active == 'album' %}menu-open{% endif %}">
+                <a href="#" class="nav-link {% if active == 'album' %}active{% endif %}">
+                    <i class="nav-icon fas fa-compact-disc"></i>
+               
+              <p>
+                Albums
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{'admin/albums' | url }}" class="nav-link {% if vista == 'album' %}active{% endif %}" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Albums</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{'admin/albums/add' | url }}" class="nav-link {% if vista == 'addalbum' %}active{% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crear Album</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+        
+          <li class="nav-item">
+            <a href="{{'admin/ads' | url }}" class="nav-link {% if active == 'ads' %}active{% endif %}">
+              <i class="nav-icon fas fa-code"></i>
+              <p>
+                Publicidad
+              </p>
+            </a>
+          </li>
+
+            
+          <li class="nav-item">
+            <a href="{{'admin/ajustes' | url }}" class="nav-link {% if active == 'ajustes' %}active{% endif %}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Ajustes Generales
+              </p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

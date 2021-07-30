@@ -1,0 +1,409 @@
+{% extends "partials/layout.twig" %}
+ 
+{% block content %}
+
+
+<script>
+    var next = '{{ram.slug}}';
+    var id_lyric = '{{lyric.id}}';
+</script>
+
+
+ <article class="bg-white shadow-sm p-3 mb-3">
+    <div class="row">
+     <div id="embed" class="col-md-12"></div>
+     <div class="col-md-12 col-lg-7 row order-1 order-md-0">
+        <div id="poster" class=" col-12 col-md-5 text-center pr-0">
+            <img data-src="{{ 'upload/cover/' | url ~ lyric.cover }}" data-srcset="{{ 'upload/cover/' | url ~ lyric.cover }}" class="img-fluid shadow-img lazy">
+        </div>
+ 
+        <div class="info  text-center text-md-left col-md-7 align-self-start">
+            <h1 class="font-weight-bold"> {{ lyric.title }} <span class="text-secondary d-block">Letra y Canción</span></h1>
+
+            <h2 class=" font-weight-bold">
+             <a href="{{ 'artista/' | url ~ getFeats(lyric.artist_id,lyric.feats).author.slug }}" title="Letras de {{ getFeats(lyric.artist_id,lyric.feats).author.name }}">
+                 {{ getFeats(lyric.artist_id,lyric.feats).author.name }}
+             </a>
+
+            {% if getFeats(lyric.artist_id,lyric.feats).feats  %}
+                {% set total = getFeats(lyric.artist_id,lyric.feats).feats|length %}
+                {% set i = 1 %}
+               ft. {% for item in getFeats(lyric.artist_id,lyric.feats).feats %}
+                  <a href="{{ 'artista/' | url ~ item.slug }}" title="Letras de {{ item.name }}">
+                    {{ item.name }}
+                  </a>{% if i < total %}, {% endif %}
+                  {% set i = i+1 %}
+               {% endfor %}
+                
+            {% endif %}
+    
+            </h2>
+
+            <div >
+             
+
+               {% if estaLogin %}
+                  <a id="addfav" data-id="{{ lyric.id }}" href="#" class="btn btn-outline-info  btn-sm "><i class="far fa-heart"></i> Canción Favorita</a>
+                  <a data-id="{{ lyric.id }}" href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#playlistModal"> Guardar en Playlist</a>
+               {% else %}
+                 <a data-toggle="modal" data-target="#loginModal" data-id="{{ lyric.id }}" href="#" class="btn btn-outline-info  btn-sm "><i class="far fa-heart"></i> Canción Favorita</a>
+                  <a data-id="{{ lyric.id }}" href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#loginModal"> Guardar en Playlist</a>
+               {% endif %}
+   
+            </div>
+
+            <div id="addmsg" class="d-inline-block"></div>
+        </div>
+
+        {% if lyric.description %}  
+            <div class="info-song col-md-12 my-4 border-top py-2 px-2 border-bottom">
+                <p>{{ lyric.description }}  {% if lyric.album.name_album %} , este tema está incluido dentro del Album <a class="text-info" href="#album" title="Album ({{lyric.album.name_album}}) de {{lyric.artist.name}}">{{lyric.album.name_album}}</a>{% endif %} </p>
+            </div>
+        {% else %}
+        <div class="info-song col-md-12 my-4 border-top py-2 px-2 border-bottom">
+                <p><b>{{ lyric.title }}</b> es una canción de <b>{{ getFeats(lyric.artist_id,lyric.feats).author.name }}
+            {% if getFeats(lyric.artist_id,lyric.feats).feats  %}
+                {% set total = getFeats(lyric.artist_id,lyric.feats).feats|length %}
+                {% set i = 1 %}
+               ft. {% for item in getFeats(lyric.artist_id,lyric.feats).feats %}
+                    {{ item.name }}{% if i < total %}, {% endif %}
+                  {% set i = i+1 %}
+               {% endfor %}
+            {% endif %}</b>{% if lyric.album.name_album %}, este tema está incluido dentro del Album <a class="text-info" href="#album" title="Album ({{lyric.album.name_album}}) de {{lyric.artist.name}}">{{lyric.album.name_album}}</a>{% endif %} </p>
+            </div>
+        {% endif %}
+
+        <div class="col-md-12 lyric text-center">
+            <h2 class="font-weight-bold">LETRA</h2>
+            <h3 class="font-weight-bold">'{{ lyric.title }}'</h3>   
+            <div id="boton-video"><a onclick="gotoVideo();return false;" class="buttonPlay"><img src="https://i.musicaimg.com/im/play.svg" onerror="this.onerror=null;this.src='https://i.musicaimg.com/im/play.png'" alt="" width="20" height="20"></a></div>
+            
+                {% set content = lyric.lyric %} {# OBTIENE LO GUARDADO EN $content #}
+                {% set letra = lyric.lyric|split('</p>') %} {# SEPARA EL CONTENIDO EN BLOQUES <p> #}
+                {% set tcount = 0 %} {# CUENTA EL NUMERO DE BLOQUES #}
+                {% set adon = 0 %}  {# PARA NO MOSTRAR MAS DE UN BLOQUE DE ANUNCIOS. #}
+
+                {% for item in letra %}
+                    
+                    {{ item | raw}}
+                    </p>
+                    {% if letra.matches('<p>') == 0 and tcount >= 2 and adon == 0 %}
+                        {% set adon = 1 %}
+                        {{ ads.cuadro300 | raw}}
+                    {% endif %}
+
+                    {% if letra.matches('<p>') == 0 and tcount >= 5 and adon == 1 %}
+                        {% set adon = 2 %}
+                            {{ ads.cuadro300 | raw}}
+            
+                    {% endif %}
+
+                    {% set tcount = tcount+1 %}
+                {% endfor %}   
+           
+        </div>
+
+        <div class="votos-avg text-center pb-2 px-3 ml-3 mb-3">
+            <span class="d-block my-3">¿Qué te parece esta canción?</span>
+            <div id="avgrat" class="total-avg">{{votos.avg}}</div>
+            <div class="rate"> 
+                {% for item in 5..1 %}
+                   <input type="radio" id="star{{item}}" name="rating" value="{{item}}" {% if votos.avg >= item %}checked="checked"{% endif %}>
+                   <label for="star{{item}}"></label>
+                {% endfor %}
+               
+            </div>
+            <div class="overall-rating">
+                <span id="totalrat" class="d-block">{{votos.total_sum}} votos</span>
+                <span id="msg" class="d-block text-info font-weight-bold"></span>
+            </div>
+        </div>
+
+
+        {% if lyric.album.lyric %}
+          <div id="album" class="album-list col-md-12 mt-5">
+            {% include "letra/list-album.twig" %}
+          </div>
+        {% endif %}
+     </div>
+
+           <div class="col-md-5 sidebar-ads p-0  order-0 order-md-1 ">
+                <div class="sidebar w-100 ">
+                    {% include "embed.twig" %}
+                    <div class="d-none d-md-block">
+                        {{ads.vertical300 | raw}}
+                    </div>
+                </div>
+           </div>
+    </div>
+ </article>
+
+
+
+
+
+{% if estaLogin %}
+    <!-- Modal -->
+<div class="modal fade" id="playlistModal" tabindex="-1" aria-labelledby="playlistModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="playlistModalLabel">Playlist</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                 <h6>Selecciona una playlist</h6>
+                <div id="checks_list" class="my-4 checks_list">
+                   {% for item in playlist.playlist %}
+                       <div class="form-check">
+                           
+                        <input class="form-check-input" type="checkbox" id="{{item.name}}" name="playlist_name" value="{{item.id}}" {% if getChecked(item.id, lyric.id) %}
+                            checked
+                        {% endif %}>
+                        <label class="form-check-label" for="{{item.name}}">
+                           {{item.name}}
+                        </label>
+                       </div>
+                   {% endfor %}
+
+                </div>
+
+
+                
+                <hr>
+               <div class="form-group">
+                   <label for="nombre">Crear Nueva Playlist</label>
+                   <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre del playlist">
+                   <div id="_error_" class="text-danger"> </div>
+               </div>
+               <button type="button" data-id="{{lyric.id}}" id="addPlaylist" class="btn btn-info btn-block">Agregar una lista nueva</button>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% set enLetra = true %}
+{% block footer %}
+
+
+<script>
+$(function() {
+    $('.rate input').on('click', function(){
+        var postID = "{{lyric.id}}";
+        var ratingNum = $(this).val();
+        var getUrl = window.location;
+		var baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
+        $.ajax({
+            type: 'POST',
+            url: baseUrl+"voto",
+            data: 'postID='+postID+'&ratingNum='+ratingNum,
+            dataType: 'json',
+            success : function(resp) {
+                if(resp.status == 1){
+                    console.logz
+                    $('#avgrat').text(resp.data.avg);
+                    $('#totalrat').text(`${resp.data.total_rate} votos`);
+                    $('#msg').text(`Gracias por tu voto`);
+                    
+                    $( ".rate input" ).each(function() {
+                    if($(this).val() <= parseInt(resp.data.avg)){
+                        $(this).attr('checked', 'checked');
+                    }else{
+                        $(this).prop( "checked", false );
+                    }
+                });
+                    
+                }else if(resp == 0){
+                    
+                    $('#msg').text(`Ya votaste por esta cancion`);
+                }
+             
+            }
+        });
+    });
+});
+</script>
+
+<script>
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	var player;
+	var show;
+	var duracion;
+    var musPlaying = null;
+    var subsPlaying = null;
+	var subsExist =  0;
+	var lastIni = 0;
+	var done = false;
+	var autoplay =  0;
+
+	function onYouTubeIframeAPIReady(){
+		player = new YT.Player('player',{
+			width: '100%',
+			height: '100%',
+			videoId: '{{lyric.video}}',
+			playerVars: {
+				'autoplay':autoplay, 
+				'modestbranding':1,
+				'rel':0,
+				'playsinline':1,
+				'enablejsapi':1,
+				'origin':'{{ "letra/" | url ~ lyric.slug }}'
+				
+			},
+			events: {
+				'onReady': onPlayerReady,
+				//'onError': onPlayerError,
+				'onStateChange': onPlayerStateChange
+			}
+		});
+}
+
+function onPlayerReady(event) {
+
+		if(subsExist==1){
+			subtitles = parseSubtitle();
+		}
+		
+		duracion = player.getDuration();
+		
+		done = true;
+		if(autoplay==1){
+			player.playVideo();
+			window.parent.postMessage('videoPlay', "*");
+		}	
+
+}
+
+function onPlayerStateChange(event) {
+    if(event.data>=0){
+        if (event.data == YT.PlayerState.PLAYING && done || event.data==YT.PlayerState.BUFFERING && done) {
+            window.parent.postMessage('videoPlay', "*");
+            if((parseInt(duracion)-parseInt(player.getCurrentTime()))<=2){
+                player.seekTo(0, true);
+                window.parent.postMessage('videoRestart', "*");
+            }
+
+            played();
+        }else{
+            window.parent.postMessage('videoStop', "*");
+            clearInterval(musPlaying);
+            musPlaying = null;
+        }
+    }
+}
+
+function onPlayerError(event){
+
+    window.parent.postMessage('videoError', "*");
+    
+    setTimeout(function(){
+
+        if(event.data>=100){
+
+            player.stopVideo();
+
+            if(autoplay==1 && nextVideo>0){
+
+               // window.top.location="https://www.musica.com/letras.asp?letra=" + nextVideo + "&ref=playlist2";
+                nextVideo=0;
+            }
+        }
+    },1000);
+}
+
+function played(){
+    if (!musPlaying) {
+        musPlaying = setInterval(function(){
+
+            curtime = player.getCurrentTime();
+
+            if((parseInt(duracion)-parseInt(curtime))<=2){
+                clearInterval(musPlaying);
+                musPlaying = null;
+                player.pauseVideo();
+                setTimeout(function(){
+                                window.parent.postMessage('videoEnd', "*");
+                }, 1000);
+            }
+        
+        }, 400);
+    }              
+}
+
+function videoInit(){
+    if (window.addEventListener){
+        window.addEventListener("message", OnMessage, false);
+    }else{
+        if(window.attachEvent){
+            window.attachEvent("onmessage", OnMessage);
+        }
+    }
+}
+
+
+
+function OnMessage(event){
+
+    plays = document.querySelectorAll(".buttonPlay");
+
+    if (event.data == "playVideo") {
+
+        if(player.getPlayerState()!=1){
+            for (t = 0; t < plays.length; t++)
+                (plays[t].querySelector("img").src = "https://i.musicaimg.com/im/pause.svg"), plays[t].querySelector("img").setAttribute("onerror", "this.onerror=null;this.src='https://i.musicaimg.com/im/pause.png'");
+            player.playVideo();
+         }else {
+            for (t = 0; t < plays.length; t++)
+                (plays[t].querySelector("img").src = "https://i.musicaimg.com/im/play.svg"), plays[t].querySelector("img").setAttribute("onerror", "this.onerror=null;this.src='https://i.musicaimg.com/im/play.png");
+            player.pauseVideo();
+        }
+    }
+}
+
+function goTo(sec){
+
+    var newTime = player.getCurrentTime()+sec;
+    if(newTime<0){ newTime=0; }
+    if(newTime>duracion){ newTime=duracion-2; }
+    player.seekTo(newTime, true);
+
+}
+
+window.onload = function(){
+    videoInit();
+
+};
+
+
+function gotoVideo() {
+    postMessage("playVideo", "*");
+}
+
+
+function autoplay() {
+    setTimeout(function () {
+        0 == document.getElementById("ap").checked
+            ? ((document.cookie = "autoplay=;max-age=0;path=/;domain=.musica.com"), document.querySelector(".videoclip").contentWindow.postMessage("autoplay:0", "*"))
+            : ((document.cookie = "autoplay=ok;max-age=2592000;path=/;domain=.musica.com"), document.querySelector(".videoclip").contentWindow.postMessage("autoplay:1", "*"));
+    }, 300);
+}
+
+
+    </script>
+ 
+{% endblock %}

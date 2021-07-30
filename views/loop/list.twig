@@ -1,0 +1,21 @@
+<div class="col-md-12 mb-3 d-flex">
+    <a href="{{ 'letra/' | url ~ lyric.slug }}" title="Letra de {{ lyric.title }}" class="d-flex">
+        <div class="lyric-cover mr-3">
+            <img data-src="{{ 'upload/cover/' | url ~ lyric.cover }}"  data-srcset="{{ 'upload/cover/' | url ~ lyric.cover }}" class="img-fluid shadow-img lazy" style="width:60px"/>
+        </div>
+        <div class="preview-datail">
+            <h3 class="h4">{{ lyric.title }}</h3>
+            <p class="text-secondary">
+             {{ getFeats(lyric.artist_id,lyric.feats).author.name }}
+            {% if getFeats(lyric.artist_id,lyric.feats).feats  %}
+                {% set total = getFeats(lyric.artist_id,lyric.feats).feats|length %}
+                {% set i = 1 %}
+               ft. {% for item in getFeats(lyric.artist_id,lyric.feats).feats %}
+                    {{ item.name }}{% if i < total %}, {% endif %}
+                  {% set i = i+1 %}
+               {% endfor %}
+            {% endif %} 
+            </p>
+        </div>
+    </a>
+</div>

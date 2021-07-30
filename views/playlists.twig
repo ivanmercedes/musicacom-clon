@@ -1,0 +1,46 @@
+{% extends "partials/layout.twig" %}
+ 
+{% block content %}
+
+
+<section>
+   
+    <div class="bg-white p-4 shadow-sm mb-3">
+       <h1 class="font-weight-bold h4">GENEROS DE MÚSICA</h1>
+
+       <div class="row mt-5">
+        <div class="col-md-7 row">
+           {% for item in generos %}
+           <div class="col-md-12 mb-3 d-flex">
+                 <a href="{{ 'genero/' | url ~ item.slug }}" title="Letra de {{ item.title }}" class="d-flex">
+                    <div class="item-cover mr-3">
+                        <i class="fas fa-music fa- fa-3x"></i>
+                    </div>
+                    <div class="preview-datail">
+                        <h3 class="h4">{{ item.name }}</h3>
+                        <p class="text-secondary">{% if getTotal(item.lyric) %}{{  getTotal(item.lyric)  }}{% else %}0{% endif %} Canciones</p>
+                    </div>
+                 </a> 
+            </div>
+           {% endfor %}
+        </div>
+        
+             <div class="col-md-5 sidebar-ads p-0">
+                <div class="sidebar w-100">
+                    {{ads.vertical300 | raw}}
+                 </div>
+             </div>  
+       </div>  
+
+                
+    </div>
+  
+</section>
+
+{% endblock %}
+
+
+{% block footer %}
+
+ 
+{% endblock %}

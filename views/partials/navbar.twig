@@ -1,0 +1,65 @@
+<nav id="sidebar">
+    <div id="dismiss">
+        <i class="fas fa-times text-dark fa-lg"></i>
+        
+    </div>
+
+    <div class="sidebar-header">
+        <span class="h5"><i class="fas fa-music"></i>  musica.com</span>
+    </div>
+
+    <ul class="list-unstyled components mx-3"> 
+
+        <li class="border-bottom my-2 {% if active == 'top' %}active{% endif %}">
+            <a href="{{ 'letras-de-canciones' | url }}" title="Letras de Canciones"> <i class="far fa-file-alt"></i> Letras de Canciones</a>
+        </li>
+
+
+        <li class="border-bottom my-2  {% if active == 'nueva' %}active{% endif %}">
+            <a href="{{'nueva-canciones' | url }}" title="Novedades Musicales"><i class="fas fa-music"></i> Novedades Musicales</a> 
+        </li>
+
+        <li class="border-bottom my-2 {% if active == 'topar' %}active{% endif %}">
+            <a href="{{'top-artistas' | url }}" title="TOP Artistas"><i class="fas fa-microphone-alt"></i> TOP Artistas</a>
+        </li>
+
+        <li class="border-bottom my-2 {% if active == 'playlist' %}active{% endif %}">
+            <a href="{{'generos' | url }}" title="Generos"><i class="fas fa-clipboard-list"></i> Generos</a>
+        </li>
+
+        {# <li class="border-bottom my-2 {% if active == 'mas' %}active{% endif %}">
+            <a href="#" title="Más Música"><i class="fas fa-headphones-alt"></i>  Más Música</a>
+        </li> #}
+
+    </ul>
+</nav>
+
+
+{% if estaLogin %}
+<nav id="sidebar2">
+    <div id="dismiss2" style="left: 0;">
+        <i class="fas fa-times text-dark fa-lg"></i>
+    </div>
+
+    <ul class="list-unstyled components mx-3 mt-5"> 
+          <li class="border-bottom my-2 text-center">
+            <a href="#">{{userName}}</a>
+          </li>
+        <li class="border-bottom my-2">
+            <a href="{{ 'cuenta' | url }}" ><i class="far fa-file-alt  mr-1"></i> Cuenta</a>
+        </li>
+
+        <li class="border-bottom my-2">
+            <a href="{{'cuenta-favoritas' | url }}" title="Novedades Musicales"><i class="fas fa-heart mr-1"></i> Canciones Favoritas</a> 
+        </li>
+
+        <li class="border-bottom my-2">
+            <a href="{{'cuenta-playlist' | url }}" title="playlist"><i class="fas fa-clipboard-list mr-1"></i> Playlist</a>
+        </li>
+
+        <li class="border-bottom my-2">
+            <a href="{{'auth/salir' | url }}" title="TOP Artistas"><i class="fas fa-sign-out-alt"></i> Logout (salir)</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}

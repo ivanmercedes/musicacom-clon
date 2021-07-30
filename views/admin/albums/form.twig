@@ -1,0 +1,60 @@
+   <div class="col-md-6">
+                <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="titulo">Titulo </label>
+                                <input type="text" class="form-control" id="titulo" placeholder="Nombre" required name="nombre" value="{{album.name_album}}">
+                            </div>
+
+                            <div class="form-group">
+                            <label>Artista</label>
+                            <select id="select2" class="form-control" required name="artista">
+                            <option value="{{getArtistsFromID(album.artist_id,true).id}}" selected>{{getArtistsFromID(album.artist_id,true).name}}</option>
+                            </select>
+                            </div>
+                            
+                            <div class="form-group">
+                               <label for="">Año</label>
+                               <input type="number" class="form-control" name="year" value="{{album.year}}" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="titulo">Descripción </label>
+                                <textarea class="form-control" placeholder="Escribe una descricion para el genero" name="descripcion">{{album.description}}</textarea>
+                            </div>
+                            <!-- /.form-group -->
+                           
+                            
+                            <div class="form-group">
+                                  <label for="">Imagen del Album</label>
+                                  <input type="file" class="form-control" name="imagen" required>
+
+                                  <div class="preview my-3">
+                                     {% if album.image  %}
+                                       <img src="{{ 'upload/album/' | url ~ album.image }}" alt="" class="img-fluid border  border-success p-3">
+                                     {% endif %}
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Agregar Genero</button>
+                </div>
+              </form>
+
+              
+            </div>
+</div>

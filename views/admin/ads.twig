@@ -1,0 +1,64 @@
+{% extends "admin/partials/layout.twig" %}
+ 
+{% block content %}
+  
+  {% include "admin/partials/navbar.twig" %}
+  {% include "admin/partials/aside.twig" with {'active': 'ads'} %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% include "admin/partials/title.twig" with {'title': 'Administrar Publicidades'} %}
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+            {{ '' | msg.display()}}
+             <div class="row">
+                <div class="col-md-12">
+                    <form method="post" class="card p-3">
+                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label>Ads 300x600</label>
+                        <textarea class="form-control" rows="10" name="300v">{{ads.vertical300}}</textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Ads 300x250</label>
+                        <textarea class="form-control" rows="10" name="cuadro">{{ ads.cuadro300}}</textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label>Adaptable Header</label>
+                        <textarea class="form-control" rows="10" name="adaptable">{{ads.adaptable}}</textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Ads 300x250 (Home Artistas)</label>
+                        <textarea class="form-control" rows="10" name="cuadro2">{{ ads.ads368}}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                        
+
+                        <div class="card-footer">
+                             <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+             </div>
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+        
+  </div>
+  <!-- Content Wrapper. Contains page content -->
+{% endblock %}

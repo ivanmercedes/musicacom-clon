@@ -1,0 +1,52 @@
+
+<aside id="scrollTop">
+
+{% if enLetra %}
+    <div>
+  <a href="#" onclick="gotoVideo();return false;" class="buttonPlay">
+    <img src="https://i.musicaimg.com/im/play.svg" onerror="this.onerror=null;this.src='https://i.musicaimg.com/im/play.png'" alt="Ver video" width="40" height="40">
+  </a>
+</div>
+{% endif %}
+
+
+  <div id="scrollButton" onclick="scrolltoTop()">
+     <img class="lazy" data-src="https://i.musicaimg.com/i9/scrolltop.png" data-srcset="https://i.musicaimg.com/i9/scrolltop.png" alt="ir a arriba" width="24" height="24">
+  </div>
+</aside>
+
+<div class="container">
+        <div class="bg-white p-4 shadow-sm mb-3">
+            <h6 class="font-weight-bold h4">Letras y Música</h6>
+
+             <div class="genre-list my-3">
+                <a href="{{'letras-de-canciones'| url }}" class="btn btn-outline-info btn-sm font-weight-bold">Letras</a>
+                <a href="{{'top-artistas'| url }}" class="btn btn-outline-info btn-sm font-weight-bold">Top Artistas</a>
+                <a href="{{'generos' | url }}" class="btn btn-outline-info btn-sm font-weight-bold">Generos</a>
+                <button type="button"  class="btn btn-outline-info btn-sm font-weight-bold btn-buscar font-weight-bold"><i class="fas fa-search"></i></button>
+            </div>
+
+            {% for i in range('a','z') %}
+                <a href="{{'por-letra/'|  url ~ i }}" class="btn btn-outline-info btn-sm text-uppercase font-weight-bold">{{ i }}</a>
+            {% endfor %}
+        </div>
+  
+</div>
+
+
+<footer class="container">
+
+
+    <div class="container">
+        <div class="row  bg-white py-5 shadow-sm">
+            <div class="col-md-12 text-center">
+                <p>© 2020 MUSICA.COM </p>
+            </div>
+            
+            <div class="col-md-12 text-center">
+                <p>Las letras disponibles tienen propósitos meramente educativos</p>
+            </div>
+        </div>
+
+    </div>
+</footer>

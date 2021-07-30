@@ -1,0 +1,77 @@
+<section class="my-3 bg-white p-4 shadow-sm">
+ 
+
+    <div class="row">
+        <div class="col-md-7">
+               <header>
+                
+                    <h1 class="font-weight-bold">{{titulo}}</h1>
+            
+                    {% if desc %}
+                        <p>{{desc}} {{general.setting.website_name}}</p>
+                    {% endif %}
+                </header>
+            <div class="row">
+                {% set count = 1 %}
+               {% for artist in top_artista %}
+
+               {% if count == 10 %}
+                   <div class="col-md-12 mb-4">
+                        {{ ads.cuadro300 | raw}}
+                    </div>
+               {% else %}
+                  <div class="col-md-12 mb-1">
+                     {% include "loop/artist-home.twig" with { 'numero': count}%}
+                  </div>  
+               {% endif %}
+                 {% set count =  count+1 %}
+               {% endfor %}
+            </div>
+
+            <button class="btn btn-outline-info btn-buscar btn-sm font-weight-bold">Buscador de Música</button>
+        </div>
+
+        <div class="col-md-4 sidebar-ads">
+             <div class="sidebar w-100">
+                {{ads.vertical300 | raw}}
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<section class="my-3 bg-white p-4 shadow-sm">
+
+    <div class="row">
+        <div class="col-md-7">
+           <h3 class="font-weight-bold">TOP Canciones</h3>
+           <p>* Datos de nosotros, no de YouTube</p>
+            {% for lyric in top_lyrics %}
+              {% include "loop/list.twig" %}
+            {% endfor %}
+
+           <a class="btn btn-outline-info font-weight-bold btn-sm" href="{{ 'letras-de-canciones' | url }}" title="Mas Letras de canciones">Letras de canciones</a>
+        </div>
+
+         <div class="col-md-4 text-center">
+            <div class="sidebar w-100">
+                {{ ads.ads368 | raw}}
+            </div>
+        </div> 
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-7">
+           <h3 class="font-weight-bold mb-4">Novedades Musicales</h3>
+            {% for lyric in lyrics %}
+              {% include "loop/list.twig" %}
+            {% endfor %}
+           <a class="btn btn-outline-info font-weight-bold btn-sm" href="{{ 'nueva-canciones' | url }}" title="Letras de canciones nuevas">Novedades Musicales</a>
+        </div>
+
+        <!-- <div class="col-md-4"></div> -->
+    </div>
+
+</section>

@@ -1,0 +1,22 @@
+{% extends "admin/partials/layout.twig" %}
+ 
+{% block content %}
+  
+  {% include "admin/partials/navbar.twig" %}
+  {% include "admin/partials/aside.twig" with {'active': 'dasboard'} %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% include "admin/partials/title.twig" with {'title': 'Panel de Administración'} %}
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+            {% include "admin/home/stats.twig" %}
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+        
+  </div>
+  <!-- Content Wrapper. Contains page content -->
+{% endblock %}

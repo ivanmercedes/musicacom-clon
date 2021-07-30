@@ -1,0 +1,199 @@
+var last_sec;
+
+document.addEventListener('click', e => {
+
+    if(e.target.id == 'dismiss' || e.target.classList.contains('overlay') || e.target.parentElement.id == 'dismiss' ){
+        document.getElementById('sidebar').classList.remove('active');
+        document.querySelector('.overlay').classList.remove('active');
+        document.querySelector('body').classList.remove('nonScroll');
+     }
+
+     if(e.target.id == 'sidebarCollapse' || e.target.parentElement.id == 'sidebarCollapse' ){
+        document.getElementById('sidebar').classList.add('active');
+        document.querySelector('.overlay').classList.add('active');
+        document.querySelector('body').classList.add('nonScroll');
+     }
+
+     if(e.target.classList.contains('btn-buscar') || e.target.classList.contains('fa-search') ){
+        document.getElementById('buscadorForm').classList.add('show');
+        document.getElementById('bsc').focus();  
+     }
+
+     if(e.target.classList.contains('bst') ){
+         const element = document.getElementById('opciones');
+         const placeholderText = ['Buscar letras, artistas, música','Buscar artistas','Buscar canciones'];
+         const type = ['all','artist','song'];
+         last_sec = type[e.target.getAttribute('data-type')];
+         element.querySelector('.active').classList.remove('active');
+         e.target.classList.add('active');
+
+         document.getElementById('bsc').placeholder =  placeholderText[e.target.getAttribute('data-type')];
+         console.log(e.target.getAttribute('data-type'));
+         searchmus();
+     }
+     
+});
+
+
+document.getElementById("bsc").addEventListener("keyup", function () {
+    searchmus();
+});
+
+
+function searchmus(t) {
+    t || (t = last_sec || "all")
+ 
+    setTimeout(function () {
+        let str = document.getElementById("bsc").value;
+        let res = document.getElementById("result");
+            if(str.length >= 2){
+            let xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObjuect('Microsoft.XMLHTTP');
+
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readyState == 4 &&  xmlhttp.status == 200){
+                    res.innerHTML = xmlhttp.responseText;
+                }       
+            }
+            xmlhttp.open("GET", "api/?q=" + str + "&t=" + t, true),
+            xmlhttp.send();
+        }
+    }, 4);
+}
+
+
+
+
+
+
+function buscar() {
+    (document.getElementById("buscar").style.display = "block"), document.getElementById("t2").focus(), window.scrollTo(0, 0);
+}
+function busqueda(t) {
+     (t2 = document.getElementById("t2")),
+     (res = document.getElementById("b_result")), 
+     (document.getElementById("b_tab").style.display = "block"),
+      0 == ini && (t2.focus(), (ini = 1)), t || (t = last_sec || "all");
+
+    for (var e = document.getElementsByClassName("b_sec"), s = 0; s < e.length; s++) 
+
+     (e[s].style.backgroundColor = "#FFFFFF"), 
+     (e[s].childNodes[0].style.color = "#2aa8de");
+
+    return (
+        (document.getElementById(t).style.backgroundColor = "#2aa8de"),
+        (document.getElementById(t).childNodes[0].style.color = "#FFFFFF"),
+        (t2.placeholder = "gru" == t ? "Buscar artistas" : "let" == t ? "Buscar canciones" : "Buscar letras, artistas, música"),
+        clearTimeout(typingTimer),
+        (last_sec = t),
+        (typingTimer = setTimeout(function () {
+            searchmus(t);
+        }, 160)),
+        !0
+    );
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+    let active = false;
+  
+    const lazyLoad = function() {
+      if (active === false) {
+        active = true;
+  
+        setTimeout(function() {
+          lazyImages.forEach(function(lazyImage) {
+              if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+              lazyImage.src = lazyImage.dataset.src;
+              lazyImage.srcset = lazyImage.dataset.srcset;
+              lazyImage.classList.remove("lazy");
+  
+              lazyImages = lazyImages.filter(function(image) {
+                return image !== lazyImage;
+              });
+  
+              if (lazyImages.length === 0) {
+                document.removeEventListener("scroll", lazyLoad);
+                window.removeEventListener("resize", lazyLoad);
+                window.removeEventListener("orientationchange", lazyLoad);
+              }
+            }
+          });
+  
+          active = false;
+        }, 200);
+      }
+    };
+  
+    document.addEventListener("scroll", lazyLoad);
+    window.addEventListener("resize", lazyLoad);
+    window.addEventListener("orientationchange", lazyLoad);
+    window.addEventListener("DOMContentLoaded", lazyLoad);
+});
+
+
+
+
+
+
+
+// window.addEventListener("scroll", function() { lazyLoad() });
+// window.addEventListener("DOMContentLoaded", function() { lazyLoad() });
+// window.addEventListener("resize", function() { lazyLoad() });
+
+// function lazyLoad() {
+//     var images = document.querySelectorAll('img.lazy');
+//     for (var i=0, nb=images.length ; i <nb ; i++) {
+//         var img = images[i]
+//         var rect = img.getBoundingClientRect();
+//         var isVisible = ((rect.top - window.innerHeight) < 500 && (rect.bottom) > -50 ) ? true : false ;
+
+//         if (isVisible) {
+//             if (!img.src) {
+//                 img.src = img.dataset.src;
+//             }
+//         }
+//     }
+// }
+
+
+
+// function lazyLoad() {
+//     var t = document.querySelectorAll("img.lazy"),
+//         a = !1;
+//       if(!1 === a && a != 0){
+//         setTimeout(function () {
+//             for (var e = 0; e <= t.length - 1; e++)
+//                 (lazyImage = t[e]),
+//                     lazyImage.getBoundingClientRect().top <= window.innerHeight &&
+//                         0 <= lazyImage.getBoundingClientRect().bottom &&
+//                         "none" !== getComputedStyle(lazyImage).display &&
+//                         ((lazyImage.src = lazyImage.dataset.src),
+//                         (lazyImage.srcset = lazyImage.dataset.srcset),
+//                         lazyImage.classList.remove("lazy"),
+//                         0 === t.length && (document.removeEventListener("scroll", lazyLoad), window.removeEventListener("resize", lazyLoad))),
+//                     (a = !1);
+//         }, 10);
+//       }
+// }
+// document.addEventListener("readystatechange", function () {
+//     "interactive" == document.readyState && lazyLoad();
+// }),
+
+// document.addEventListener("scroll", function () { lazyLoad(); }),
+// window.addEventListener("resize", function () { lazyLoad(); });
+
+function scrolltoTop() {
+    var o = document.body.scrollTop + document.documentElement.scrollTop,
+        e = o / 50;
+    if (100 < o)
+        var l = setInterval(function () {
+            (o -= e) < e && ((o = 0), clearInterval(l)), (document.body.scrollTop = o), (document.documentElement.scrollTop = o);
+        }, 1);
+}
+window.addEventListener("scroll", function () {
+    var o = window.pageYOffset || document.body.scrollTop,
+        e = document.getElementById("scrollTop");
+       // j = document.getElementById("avisoinferior");
+    e.style.display = 1400 < o ? "block" : "none";
+   // j.style.display = 1800 < o ? "block" : "none";
+});

@@ -1,0 +1,78 @@
+{% extends "admin/partials/layout.twig" %}
+ 
+{% block content %}
+  
+  {% include "admin/partials/navbar.twig" %}
+  {% include "admin/partials/aside.twig" with {'active': 'usuarios', 'vista': 'addusuario'} %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    {% include "admin/partials/title.twig" with {'title': 'Agregar Usuario'} %}
+    
+       <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        {{ '' | msg.display()}}
+        <div class="row justify-content-">
+             <a class="col-md-6">
+                <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="post" autocomplete="off">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="titulo">Nombre de usuario </label>
+                                <input type="text" class="form-control" id="titulo" placeholder="Nombre" required name="nombre">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="titulo">Correo </label>
+                                <input type="text" class="form-control" id="titulo" placeholder="Correo electronico" required name="correo">
+                            </div>
+                            <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="titulo">Contraseña </label>
+                                <input type="password" class="form-control" id="titulo" placeholder="Contraseña" required name="password" autocomplete="off">
+                            </div>
+                            <!-- /.form-group -->
+                            
+                            <div class="form-group">
+                              <label for="actionsong_id">Rol</label>
+                              <select class="form-control" id="estado" name="rol">
+                                <option value="1">Administrador</option>
+                                <option value="0">User</option>
+                              </select>
+                            </div>
+                            <!-- /.form-group -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                </div>
+              </form>
+
+              
+            </div>
+             </a>
+        </div>
+        <!-- /.row -->
+        
+      </div><!-- /.container-fluid -->
+      
+    </div>
+    <!-- /.content -->  
+        
+  </div>
+  <!-- Content Wrapper. Contains page content -->
+{% endblock %}

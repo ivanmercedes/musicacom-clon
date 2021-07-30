@@ -1,0 +1,23 @@
+{% if lyric.album.lyric %}
+
+<p class="h5 font-weight-bold">Canciones del disco</p>
+<div class="album-lyric-datail d-flex my-3">
+    <div class="cover-album mr-3">
+        <img data-src="{{ 'upload/album/' | url ~ lyric.album.image}}" data-srcset="{{ 'upload/album/' | url ~ lyric.album.image}}" class="img-fluid shadow-img lazy"/>
+    </div>
+    <div class="name">
+         <h3 class="mb-1 h5 font-weight-bold">Album {{lyric.album.name_album}}</h3>
+         <span class="text-secondary">(2020)</span>
+         <p>{{lyric.album.artist.name}}</p>
+    </div>
+</div>
+
+
+    <ul class="list-group list-group-flush">
+      {% set i = 1 %}
+       {% for lyric in lyric.album.lyric %}
+          {% include "letra/list.twig" %}
+       {% set i = i+1 %}
+      {% endfor %}
+    </ul>
+{% endif %}

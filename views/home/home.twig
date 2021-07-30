@@ -1,0 +1,35 @@
+<section class="my-3 bg-white p-4 shadow-sm">
+ 
+
+    <div class="row">
+        <div class="col-md-7">
+               <header>
+                    <h2 class="font-weight-bold h3">TOP Canciones</h2>
+                    <p>* Datos de musica.com, no de YouTube</p>
+                </header>
+            <div class="row">
+               {% for lyric in top_lyrics %}
+                  {% include "loop/list.twig" %}
+               {% endfor %}
+            </div>
+
+            <a href="{{ 'letras-de-canciones' | url }}" class="btn btn-outline-info font-weight-bold btn-sm" title="Letras de canciones">Letras de canciones</a>
+
+           <div class="row mt-5">
+             <div class="col-md-12">
+                 <h2 class="font-weight-bold h3">Novedades Musicales</h2>
+             </div>
+              {% for lyric in lyrics %}
+                {% include "loop/list.twig" %}
+              {% endfor %}
+            </div>
+           <a href="{{ 'nueva-canciones' | url }}" class="btn btn-outline-info font-weight-bold btn-sm" title="Canciones Recientes"> Novedades Musicales</a>
+        </div>
+
+        <div class="col-md-4 sidebar-ads">
+             <div class="sidebar w-100">
+                {{ads.vertical300 | raw}}
+            </div>
+        </div>
+    </div>
+</section>
